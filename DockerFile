@@ -1,0 +1,14 @@
+#go环境
+FROM golang:latest
+
+# 在容器内设置 /golandproduct/gindemo 为当前工作目录
+WORKDIR /golandproduct/gindemo
+# 把文件复制到当前工作目录
+COPY . .
+
+#执行go build生成二进制打包文件hello
+RUN go build -o ./bin/gin_demo main.go
+# 监听端口
+EXPOSE 8080
+# docker run 时执行命令。之所以是 "./bin/gin_demo" 而非是 "gin_demo"是因为我们是在当前的目录下的二进制文件
+ENTRYPOINT ["./bin/gin_demo"]
